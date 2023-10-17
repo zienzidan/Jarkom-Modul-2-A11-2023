@@ -461,7 +461,7 @@ ping www.baratayuda.abimanyu.a11.com
 ```
 
 **Hasil**
-![first](image/7.png)
+![first](https://github.com/zienzidan/Jarkom-Modul-2-A11-2023/blob/main/Image/7.png)
 
 ## Soal 8
 > Untuk informasi yang lebih spesifik mengenai Ranjapan Baratayuda, buatlah subdomain melalui Werkudara dengan akses rjp.baratayuda.abimanyu.yyy.com dengan alias www.rjp.baratayuda.abimanyu.yyy.com yang mengarah ke Abimanyu.
@@ -497,7 +497,7 @@ ping www.rjp.abimanyu.a11.com
 
 **Hasil**
 
-![first](image/8.png)
+![first](https://github.com/zienzidan/Jarkom-Modul-2-A11-2023/blob/main/Image/8.png)
 
 ### Soal 9
 >Arjuna merupakan suatu Load Balancer Nginx dengan tiga worker (yang juga menggunakan nginx sebagai webserver) yaitu Prabakusuma, Abimanyu, dan Wisanggeni. Lakukan deployment pada masing-masing worker.
@@ -699,11 +699,11 @@ lynx arjuna.a11.com
 ```
 > Hasil
 
-![first](image/10%20(3).png)
+![first](Image/10%20(3).png)
 
-![first](image/10%20(1).png)
+![first](Image/10%20(1).png)
 
-![first](image/10%20(2).png)
+![first](Image/10%20(2).png)
 
 ### Soal 11
 >Selain menggunakan Nginx, lakukan konfigurasi Apache Web Server pada worker Abimanyu dengan web server www.abimanyu.yyy.com. Pertama dibutuhkan web server dengan DocumentRoot pada /var/www/abimanyu.yyy
@@ -774,7 +774,7 @@ lynx www.abimanyu.a11.com
 ```
 > Hasil
 
-![first](image/11.png)
+![first](Image/11.png)
 
 ### Soal 12
 >Setelah itu ubahlah agar url www.abimanyu.yyy.com/index.php/home menjadi www.abimanyu.yyy.com/home.
@@ -831,7 +831,7 @@ service apache2 restart
 ```
 lynx abimanyu.a11.com/home
 ```
-![first](image/11.png)
+![first](Image/11.png)
 
 ### Soal 13
 >Selain itu, pada subdomain www.parikesit.abimanyu.yyy.com, DocumentRoot disimpan pada /var/www/parikesit.abimanyu.yyy
@@ -866,7 +866,7 @@ lynx parikesit.abimanyu.a11.com
 ```
 >Hasil
 
-![first](image/13.png)
+![first](Image/13.png)
 
 ### Soal 14
 >Pada subdomain tersebut folder /public hanya dapat melakukan directory listing sedangkan pada folder /secret tidak dapat diakses (403 Forbidden).
@@ -900,9 +900,9 @@ lynx parikesit.abimanyu.a11.com/secret
 ```
 >Hasil
 
-![first](image/14%20(2).png)
+![first](Image/14%20(2).png)
 
-![first](image/14%20(1).png)
+![first](Image/14%20(1).png)
 
 ### Soal 15
 >Buatlah kustomisasi halaman error pada folder /error untuk mengganti error kode pada Apache. Error kode yang perlu diganti adalah 404 Not Found dan 403 Forbidden
@@ -939,13 +939,13 @@ lynx parikesit.abimanyu.a11.com/abcde
 ```
 >Hasil
 
-![first](image/15%20(1).png)
+![first](Image/15%20(1).png)
 
-![first](image/15%20(2).png)
+![first](Image/15%20(2).png)
 
-![first](image/15%20(3).png)
+![first](Image/15%20(3).png)
 
-![first](image/15%20(4).png)
+![first](Image/15%20(4).png)
 
 ### Soal 16
 >Buatlah suatu konfigurasi virtual host agar file asset www.parikesit.abimanyu.yyy.com/public/js menjadi www.parikesit.abimanyu.yyy.com/js 
@@ -983,7 +983,7 @@ lynx parikesit.abimanyu.a11.com/js
 
 >Hasil
 
-![first](image/16.png)
+![first](Image/16.png)
 
 ### Soal 17
 >Agar aman, buatlah konfigurasi agar www.rjp.baratayuda.abimanyu.yyy.com hanya dapat diakses melalui port 14000 dan 14400.
@@ -1056,9 +1056,9 @@ lynx rjp.baratayuda.abimanyu.a11.com:14400
 ```
 > Hasil
 
-![first](image/17%20(2).png)
+![first](Image/17%20(2).png)
 
-![first](image/17%20(1).png)
+![first](Image/17%20(1).png)
 
 ### Soal 18
 >Untuk mengaksesnya buatlah autentikasi username berupa “Wayang” dan password “baratayudayyy” dengan yyy merupakan kode kelompok. Letakkan DocumentRoot pada /var/www/rjp.baratayuda.abimanyu.yyy
@@ -1128,17 +1128,17 @@ lynx rjp.baratayuda.abimanyu.a11.com:14400
 ```
 >Hasil
 
-![first](image/18%20(1).png)
+![first](Image/18%20(1).png)
 
-![first](image/18%20(2).png)
+![first](Image/18%20(2).png)
 
-![first](image/18%20(3).png)
+![first](Image/18%20(3).png)
 
-![first](image/18%20(4).png)
+![first](Image/18%20(4).png)
 
-![first](image/18%20(2).png)
+![first](Image/18%20(2).png)
 
-![first](image/18%20(5).png)
+![first](Image/18%20(5).png)
 
 ### Soal 19
 >Buatlah agar setiap kali mengakses IP dari Abimanyu akan secara otomatis dialihkan ke www.abimanyu.yyy.com (alias)
@@ -1201,7 +1201,7 @@ lynx 192.174.4.3
 ```
 >Hasil
 
-![first](image/19.png)
+![first](Image/19.png)
 
 ### Soal 20
 >Karena website www.parikesit.abimanyu.yyy.com semakin banyak pengunjung dan banyak gambar gambar random, maka ubahlah request gambar yang memiliki substring “abimanyu” akan diarahkan menuju abimanyu.png.
@@ -1250,8 +1250,8 @@ lynx parikesit.abimanyu.a11.com/public/images/not-abimanyu.png
 ```
 >Hasil
 
-![first](image/20%20(1).png)
+![first](Image/20%20(1).png)
 
-![first](image/20%20(3).png)
+![first](Image/20%20(3).png)
 
-![first](image/20%20(2).png)
+![first](Image/20%20(2).png)
