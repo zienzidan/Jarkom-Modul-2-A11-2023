@@ -461,6 +461,7 @@ ping www.baratayuda.abimanyu.a11.com
 ```
 
 **Hasil**
+![first](image/7.png)
 
 ## Soal 8
 > Untuk informasi yang lebih spesifik mengenai Ranjapan Baratayuda, buatlah subdomain melalui Werkudara dengan akses rjp.baratayuda.abimanyu.yyy.com dengan alias www.rjp.baratayuda.abimanyu.yyy.com yang mengarah ke Abimanyu.
@@ -495,3 +496,762 @@ ping www.rjp.abimanyu.a11.com
 ```
 
 **Hasil**
+
+![first](image/8.png)
+
+### Soal 9
+>Arjuna merupakan suatu Load Balancer Nginx dengan tiga worker (yang juga menggunakan nginx sebagai webserver) yaitu Prabakusuma, Abimanyu, dan Wisanggeni. Lakukan deployment pada masing-masing worker.
+
+### Soal 10
+>Kemudian gunakan algoritma Round Robin untuk Load Balancer pada Arjuna. Gunakan server_name pada soal nomor 1. Untuk melakukan pengecekan akses alamat web tersebut kemudian pastikan worker yang digunakan untuk menangani permintaan akan berganti ganti secara acak. Untuk webserver di masing-masing worker wajib berjalan di port 8001-8003. Contoh:    - Prabakusuma:8001 - Abimanyu:8002 - Wisanggeni:8003
+
+#### Arjuna
+```
+apt-get update 
+
+apt-get install nginx -y
+
+echo 'upstream myweb  {
+        server 192.174.4.2:8001;
+        server 192.174.4.3:8002;
+        server 192.174.4.4:8003;
+
+}
+
+server {
+        listen 80;
+        server_name arjuna;
+
+        location / {
+                proxy_pass http://myweb;
+        }
+}' > /etc/nginx/sites-available/lb-arjuna
+
+ln -s /etc/nginx/sites-available/lb-arjuna /etc/nginx/sites-enabled
+
+rm -rf /etc/nginx/sites-enabled/default 
+
+service nginx restart
+```
+
+#### Prabukusuma
+```
+apt-get update
+
+apt-get install wget unzip nginx php php-fpm -y
+
+wget -O file.zip “https://drive.google.com/uc?export=download&id=17tAM_XDKYWDvF-JJix1x7txvTBEax7vX”
+
+unzip file.zip
+
+mv arjuna.yyy.com /var/www/arjuna.a11
+
+rm file.zip
+
+nano /etc/nginx/sites-available/arjuna.a11
+
+echo 'server {
+
+            listen 8001;
+
+            root /var/www/arjuna.a11;
+
+            index index.php index.html index.htm;
+            server_name arjuna;
+
+            location / {
+                        try_files $uri $uri/ /index.php?$query_string;
+            }
+
+            # pass PHP scripts to FastCGI server
+            location ~ \.php$ {
+            include snippets/fastcgi-php.conf;
+            fastcgi_pass unix:/var/run/php/php7.0-fpm.sock;
+            }
+
+        location ~ /\.ht {
+                        deny all;
+	}
+
+	error_log /var/log/nginx/arjuna_error.log;
+	access_log /var/log/nginx/arjuna_access.log;
+}' > /etc/nginx/sites-available/arjuna.a11
+
+ln -s /etc/nginx/sites-available/arjuna.a11 /etc/nginx/sites-enabled
+
+rm -rf /etc/nginx/sites-enabled/default 
+
+service nginx restart 
+
+service php7.0-fpm start
+
+```
+#### Abimanyu
+```
+apt-get update
+
+apt-get install wget unzip nginx php php-fpm -y
+
+wget -O file.zip “https://drive.google.com/uc?export=download&id=17tAM_XDKYWDvF-JJix1x7txvTBEax7vX”
+
+unzip file.zip
+
+mv arjuna.yyy.com /var/www/arjuna.a11
+
+rm file.zip
+
+nano /etc/nginx/sites-available/arjuna.a11
+
+echo 'server {
+
+            listen 8002;
+
+            root /var/www/arjuna.a11;
+
+            index index.php index.html index.htm;
+            server_name arjuna;
+
+            location / {
+                        try_files $uri $uri/ /index.php?$query_string;
+            }
+
+            # pass PHP scripts to FastCGI server
+            location ~ \.php$ {
+            include snippets/fastcgi-php.conf;
+            fastcgi_pass unix:/var/run/php/php7.0-fpm.sock;
+            }
+
+        location ~ /\.ht {
+                        deny all;
+	}
+
+	error_log /var/log/nginx/arjuna_error.log;
+	access_log /var/log/nginx/arjuna_access.log;
+}' > /etc/nginx/sites-available/arjuna.a11
+
+ln -s /etc/nginx/sites-available/arjuna.a11 /etc/nginx/sites-enabled
+
+rm -rf /etc/nginx/sites-enabled/default 
+
+service nginx restart 
+
+service php7.0-fpm start
+
+```
+#### Wisanggeni
+```
+apt-get update
+
+apt-get install wget unzip nginx php php-fpm -y
+
+wget -O file.zip “https://drive.google.com/uc?export=download&id=17tAM_XDKYWDvF-JJix1x7txvTBEax7vX”
+
+unzip file.zip
+
+mv arjuna.yyy.com /var/www/arjuna.a11
+
+rm file.zip
+
+nano /etc/nginx/sites-available/arjuna.a11
+
+echo 'server {
+
+            listen 8001;
+
+            root /var/www/arjuna.a11;
+
+            index index.php index.html index.htm;
+            server_name arjuna;
+
+            location / {
+                        try_files $uri $uri/ /index.php?$query_string;
+            }
+
+            # pass PHP scripts to FastCGI server
+            location ~ \.php$ {
+            include snippets/fastcgi-php.conf;
+            fastcgi_pass unix:/var/run/php/php7.0-fpm.sock;
+            }
+
+        location ~ /\.ht {
+                        deny all;
+	}
+
+	error_log /var/log/nginx/arjuna_error.log;
+	access_log /var/log/nginx/arjuna_access.log;
+}' > /etc/nginx/sites-available/arjuna.a11
+
+ln -s /etc/nginx/sites-available/arjuna.a11 /etc/nginx/sites-enabled
+
+rm -rf /etc/nginx/sites-enabled/default 
+
+service nginx restart 
+
+service php7.0-fpm start
+
+```
+
+#### Nakula
+```
+apt-get install lynx
+
+lynx arjuna.a11.com
+```
+> Hasil
+
+![first](image/10%20(3).png)
+
+![first](image/10%20(1).png)
+
+![first](image/10%20(2).png)
+
+### Soal 11
+>Selain menggunakan Nginx, lakukan konfigurasi Apache Web Server pada worker Abimanyu dengan web server www.abimanyu.yyy.com. Pertama dibutuhkan web server dengan DocumentRoot pada /var/www/abimanyu.yyy
+
+#### Abimanyu
+```
+wget -O file.zip "https://drive.google.com/uc?export=download&id=1a4V23hwK9S7hQEDEcv9FL14UkkrHc-Zc"
+
+unzip file.zip
+
+mv abimanyu.yyy.com /var/www/abimanyu.a11
+
+rm file.zip
+
+apt-get update
+
+apt-get install apache2 php libapache2-mod-php7.0 -y
+
+service apache2 start
+
+echo '<VirtualHost *:80>
+        # The ServerName directive sets the request scheme, hostname and port that
+        # the server uses to identify itself. This is used when creating
+        # redirection URLs. In the context of virtual hosts, the ServerName
+        # specifies what hostname must appear in the request's Host: header to
+        # match this virtual host. For the default virtual host (this file) this
+        # value is not decisive as it is used as a last resort host regardless.
+        # However, you must set it for any further virtual host explicitly.
+        #ServerName www.example.com
+
+        ServerAdmin webmaster@localhost
+        DocumentRoot /var/www/abimanyu.a11
+
+        ServerName abimanyu.a11.com
+        ServerAlias www.abimanyu.a11.comRedirect permanent /index.php/home http://www.abimanyu.a11.com/home/
+        Redirect permanent /192.174.4.3/ https://www.abimanyu.a11.com
+        # Available loglevels: trace8, ..., trace1, debug, info, notice, warn,
+        # error, crit, alert, emerg.
+        # It is also possible to configure the loglevel for particular
+        # modules, e.g.
+        #LogLevel info ssl:warn
+
+        ErrorLog ${APACHE_LOG_DIR}/error.log
+        CustomLog ${APACHE_LOG_DIR}/access.log combined
+
+        # For most configuration files from conf-available/, which are
+        # enabled or disabled at a global level, it is possible to
+        # include a line for only one particular virtual host. For example the
+        # following line enables the CGI configuration for this host only
+        # after it has been globally disabled with "a2disconf".
+        #Include conf-available/serve-cgi-bin.conf
+</VirtualHost>' > /etc/apache2/sites-available/abimanyu.a11.com.conf
+
+a2ensite abimanyu.a11.com 
+
+service apache2 restart
+```
+Tambahkan pada file /etc/apache2/sites-available/abimanyu.a11.com.conf
+```
+<Directory /var/www/abimanyu.a11.com/home>
+        Options +Indexes
+</Directory>
+```
+> Lakukan Testing
+
+```
+lynx www.abimanyu.a11.com
+```
+> Hasil
+
+![first](image/11.png)
+
+### Soal 12
+>Setelah itu ubahlah agar url www.abimanyu.yyy.com/index.php/home menjadi www.abimanyu.yyy.com/home.
+
+ubah file  /etc/apache2/sites-available/abimanyu.a11.com.conf dan tambahkan
+#### Abimanyu
+```
+Redirect permanent /index.php/home http://www.abimanyu.a11.com/home/
+```
+secara utuh 
+```
+echo '<VirtualHost *:80>
+        # The ServerName directive sets the request scheme, hostname and port that
+        # the server uses to identify itself. This is used when creating
+        # redirection URLs. In the context of virtual hosts, the ServerName
+        # specifies what hostname must appear in the request's Host: header to
+        # match this virtual host. For the default virtual host (this file) this
+        # value is not decisive as it is used as a last resort host regardless.
+        # However, you must set it for any further virtual host explicitly.
+        #ServerName www.example.com
+
+        ServerAdmin webmaster@localhost
+        DocumentRoot /var/www/abimanyu.a11
+
+        ServerName abimanyu.a11.com
+        ServerAlias www.abimanyu.a11.com
+
+        <Directory /var/www/abimanyu.a11.com/home>
+                Options +Indexes
+        </Directory>
+
+        Redirect permanent /index.php/home http://www.abimanyu.a11.com/home/
+
+         # Available loglevels: trace8, ..., trace1, debug, info, notice, warn,
+        # error, crit, alert, emerg.
+        # It is also possible to configure the loglevel for particular
+        # modules, e.g.
+        #LogLevel info ssl:warn
+
+        ErrorLog ${APACHE_LOG_DIR}/error.log
+        CustomLog ${APACHE_LOG_DIR}/access.log combined
+
+        # For most configuration files from conf-available/, which are
+        # enabled or disabled at a global level, it is possible to
+        # include a line for only one particular virtual host. For example the
+        # following line enables the CGI configuration for this host only
+        # after it has been globally disabled with "a2disconf".
+        #Include conf-available/serve-cgi-bin.conf
+</VirtualHost>' > /etc/apache2/sites-available/abimanyu.a11.com.conf
+
+service apache2 restart
+```
+>Lakukan Testing
+```
+lynx abimanyu.a11.com/home
+```
+![first](image/11.png)
+
+### Soal 13
+>Selain itu, pada subdomain www.parikesit.abimanyu.yyy.com, DocumentRoot disimpan pada /var/www/parikesit.abimanyu.yyy
+
+#### Abimanyu
+```
+wget -O file.zip “https://drive.google.com/uc?export=download&id=1LdbYntiYVF_NVNgJis1GLCLPEGyIOreS”
+
+unzip file.zip
+
+mv parikesit.abimanyu.yyy.com /var/www/parikesit.abimanyu.a11
+
+rm file.zip
+```
+Edit file /etc/apache2/sites-available/parikesit.abimanyu.a11.com.conf 
+```
+echo '<VirtualHost *:80>
+        ServerAdmin webmaster@localhost
+        DocumentRoot /var/www/parikesit.abimanyu.a11
+        ServerName parikesit.abimanyu.a11.com
+        ServerAlias www.parikesit.abimanyu.a11.com
+        ErrorLog ${APACHE_LOG_DIR}/error.log
+        CustomLog ${APACHE_LOG_DIR}/access.log combined
+</Virtualhost>' > /etc/apache2/sites-available/parikesit.abimanyu.a11.com.conf 
+
+a2ensite parikesit.abimanyu.a11.com
+```
+
+>Lakukan Testing
+```
+lynx parikesit.abimanyu.a11.com
+```
+>Hasil
+
+![first](image/13.png)
+
+### Soal 14
+>Pada subdomain tersebut folder /public hanya dapat melakukan directory listing sedangkan pada folder /secret tidak dapat diakses (403 Forbidden).
+
+ubah file /etc/apache2/sites-available/parikesit.abimanyu.a11.com.conf 
+#### Abimanyu
+```
+echo '<VirtualHost *:80>
+        ServerAdmin webmaster@localhost
+        DocumentRoot /var/www/parikesit.abimanyu.a11
+        ServerName parikesit.abimanyu.a11.com
+        ServerAlias www.parikesit.abimanyu.a11.com
+        <Directory /var/www/parikesit.abimanyu.a11/public>
+                Options +Indexes
+        </Directory>
+        <Directory /var/www/parikesit.abimanyu.a11/secret>
+                Options -Indexes +FollowSymLinks
+        </Directory>
+        ErrorLog ${APACHE_LOG_DIR}/error.log
+        CustomLog ${APACHE_LOG_DIR}/access.log combined
+</Virtualhost>' > /etc/apache2/sites-available/parikesit.abimanyu.a11.com.conf 
+```
+Buat file /var/www/parikesit.abimanyu.a11/secret/.htaccess
+```
+Require all denied
+``` 
+>Lakukan Testing
+```
+lynx parikesit.abimanyu.a11.com/public
+lynx parikesit.abimanyu.a11.com/secret
+```
+>Hasil
+
+![first](image/14%20(2).png)
+
+![first](image/14%20(1).png)
+
+### Soal 15
+>Buatlah kustomisasi halaman error pada folder /error untuk mengganti error kode pada Apache. Error kode yang perlu diganti adalah 404 Not Found dan 403 Forbidden
+
+Edit file /etc/apache2/sites-available/parikesit.abimanyu.a11.com.conf
+tambahkan 
+```
+ErrorDocument 403 /error/403.php
+ErrorDocument 404 /error/404.php 
+```
+#### Abimanyu
+```
+echo '<VirtualHost *:80>
+        ServerAdmin webmaster@localhost
+        DocumentRoot /var/www/parikesit.abimanyu.a11
+        ServerName parikesit.abimanyu.a11.com
+        ServerAlias www.parikesit.abimanyu.a11.com
+        <Directory /var/www/parikesit.abimanyu.a11/public>
+                Options +Indexes
+        </Directory>
+        <Directory /var/www/parikesit.abimanyu.a11/secret>
+                Options -Indexes +FollowSymLinks
+        </Directory>
+         ErrorDocument 403 /error/403.html
+         ErrorDocument 404 /error/404.html
+        ErrorLog ${APACHE_LOG_DIR}/error.log
+        CustomLog ${APACHE_LOG_DIR}/access.log combined
+</Virtualhost>' > /etc/apache2/sites-available/parikesit.abimanyu.a11.com.conf
+```
+>Lakukan Testing
+```
+lynx parikesit.abimanyu.a11.com/secret
+lynx parikesit.abimanyu.a11.com/abcde 
+```
+>Hasil
+
+![first](image/15%20(1).png)
+
+![first](image/15%20(2).png)
+
+![first](image/15%20(3).png)
+
+![first](image/15%20(4).png)
+
+### Soal 16
+>Buatlah suatu konfigurasi virtual host agar file asset www.parikesit.abimanyu.yyy.com/public/js menjadi www.parikesit.abimanyu.yyy.com/js 
+
+Ubah file /etc/apache2/sites-available/parikesit.abimanyu.a11.com.conf
+tambahkan 
+```
+Alias /js /var/www/parikesit.abimanyu.a11/public/js 
+```
+#### Abimanyu
+```
+echo '<VirtualHost *:80>
+        ServerAdmin webmaster@localhost
+        DocumentRoot /var/www/parikesit.abimanyu.a11
+        ServerName parikesit.abimanyu.a11.com
+        ServerAlias www.parikesit.abimanyu.a11.com
+        <Directory /var/www/parikesit.abimanyu.a11/public>
+                Options +Indexes
+        </Directory>
+        <Directory /var/www/parikesit.abimanyu.a11/secret>
+                Options -Indexes +FollowSymLinks
+        </Directory>
+        Alias /js /var/www/parikesit.abimanyu.a11/public/js
+        ErrorDocument 403 /error/403.html
+        ErrorDocument 404 /error/404.html
+        ErrorLog ${APACHE_LOG_DIR}/error.log
+        CustomLog ${APACHE_LOG_DIR}/access.log combined
+</Virtualhost>' > /etc/apache2/sites-available/parikesit.abimanyu.a11.com.conf
+```
+
+>Lakukan Testing
+```
+lynx parikesit.abimanyu.a11.com/js
+```
+
+>Hasil
+
+![first](image/16.png)
+
+### Soal 17
+>Agar aman, buatlah konfigurasi agar www.rjp.baratayuda.abimanyu.yyy.com hanya dapat diakses melalui port 14000 dan 14400.
+
+#### Abimanyu
+```
+wget -O file.zip “https://drive.google.com/uc?export=download&id=1pPSP7yIR05JhSFG67RVzgkb-VcW9vQO6”
+
+unzip file.zip
+
+mv rjp.baratayuda.abimanyu.yyy.com /var/www/rjp.baratayuda.abimanyu.a11
+
+rm file.zip
+```
+Buat file /etc/apache2/sites-available/rjp.baratayuda.abimanyu.a11.com.conf 
+```
+echo '<VirtualHost *:14000>
+    ServerAdmin webmaster@localhost
+    DocumentRoot /var/www/rjp.baratayuda.abimanyu.a11
+    ServerName rjp.baratayuda.abimanyu.a11.com
+    ServerAlias www.rjp.baratayuda.abimanyu.a11.com
+
+    <Directory /var/www/rjp.baratayuda.abimanyu.a11>
+        Options +Indexes
+    </Directory>
+
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+
+<VirtualHost *:14400>
+    ServerAdmin webmaster@localhost
+    DocumentRoot /var/www/rjp.baratayuda.abimanyu.a11
+    ServerName rjp.baratayuda.abimanyu.a11.com
+    ServerAlias www.rjp.baratayuda.abimanyu.a11.com
+
+    <Directory /var/www/rjp.baratayuda.abimanyu.a11>
+        Options +Indexes
+    </Directory>
+
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>' >  /etc/apache2/sites-available/rjp.baratayuda.abimanyu.a11.com.conf
+```
+Edit file /etc/apache2/ports.conf dan tambahkan Listen 14000 dan Listen 14400
+```
+echo 'Listen 80
+Listen 14000
+Listen 14400
+
+<IfModule ssl_module>
+        Listen 443
+</IfModule>
+
+<IfModule mod_gnutls.c>
+        Listen 443
+</IfModule>' > /etc/apache2/ports.conf
+```
+lakukan perintah
+```
+a2ensite rjp.baratayuda.abimanyu.a11.com
+
+service apache2 restart
+```
+>Lakukan Testing
+```
+lynx rjp.baratayuda.abimanyu.a11.com:14000
+
+lynx rjp.baratayuda.abimanyu.a11.com:14400
+```
+> Hasil
+
+![first](image/17%20(2).png)
+
+![first](image/17%20(1).png)
+
+### Soal 18
+>Untuk mengaksesnya buatlah autentikasi username berupa “Wayang” dan password “baratayudayyy” dengan yyy merupakan kode kelompok. Letakkan DocumentRoot pada /var/www/rjp.baratayuda.abimanyu.yyy
+
+Ubah file /etc/apache2/sites-available/rjp.baratayuda.abimanyu.a11.com.conf 
+
+#### Abimanyu
+```
+echo '<VirtualHost *:14000>
+    ServerAdmin webmaster@localhost
+    DocumentRoot /var/www/rjp.baratayuda.abimanyu.a11
+    ServerName rjp.baratayuda.abimanyu.a11.com
+    ServerAlias www.rjp.baratayuda.abimanyu.a11.com
+
+    <Directory /var/www/rjp.baratayuda.abimanyu.a11>
+        Options +Indexes
+    </Directory>
+
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+    <Location />
+            AuthType Basic
+            AuthName "Restricted Area"
+            AuthUserFile /etc/apache2/.htpasswd
+            Require valid-user
+    </Location>
+</VirtualHost>
+
+<VirtualHost *:14400>
+    ServerAdmin webmaster@localhost
+    DocumentRoot /var/www/rjp.baratayuda.abimanyu.a11
+    ServerName rjp.baratayuda.abimanyu.a11.com
+    ServerAlias www.rjp.baratayuda.abimanyu.a11.com
+
+    <Directory /var/www/rjp.baratayuda.abimanyu.a11>
+        Options +Indexes
+    </Directory>
+
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+    <Location />
+            AuthType Basic
+            AuthName "Restricted Area"
+            AuthUserFile /etc/apache2/.htpasswd
+            Require valid-user
+    </Location>
+</VirtualHost>' > /etc/apache2/sites-available/rjp.baratayuda.abimanyu.a11.com.conf
+```
+Lakukan perintah 
+```
+htpasswd -c -B -b /etc/apache2/.htpasswd Wayang baratayudaa11
+
+a2enmod authn_core
+
+a2enmod auth_basic
+
+a2enmod authn_file
+
+service apache2 restart
+```
+
+>Lakukan Testing
+```
+lynx rjp.baratayuda.abimanyu.a11.com:14000
+
+lynx rjp.baratayuda.abimanyu.a11.com:14400
+```
+>Hasil
+
+![first](image/18%20(1).png)
+
+![first](image/18%20(2).png)
+
+![first](image/18%20(3).png)
+
+![first](image/18%20(4).png)
+
+![first](image/18%20(2).png)
+
+![first](image/18%20(5).png)
+
+### Soal 19
+>Buatlah agar setiap kali mengakses IP dari Abimanyu akan secara otomatis dialihkan ke www.abimanyu.yyy.com (alias)
+
+Edit file /etc/apache2/sites-available/abimanyu.a11.com.conf
+tambahkan
+```
+Redirect permanent /192.174.4.3/ https://www.abimanyu.a11.com
+``` 
+#### Abimanyu
+```
+echo '<VirtualHost *:80>
+        # The ServerName directive sets the request scheme, hostname and port that
+        # the server uses to identify itself. This is used when creating
+        # redirection URLs. In the context of virtual hosts, the ServerName
+        # specifies what hostname must appear in the request's Host: header to
+        # match this virtual host. For the default virtual host (this file) this
+        # value is not decisive as it is used as a last resort host regardless.
+        # However, you must set it for any further virtual host explicitly.
+        #ServerName www.example.com
+
+        ServerAdmin webmaster@localhost
+        DocumentRoot /var/www/abimanyu.a11
+
+        ServerName abimanyu.a11.com
+        ServerAlias www.abimanyu.a11.com
+
+        <Directory /var/www/abimanyu.a11.com/home>
+                Options +Indexes
+        </Directory>
+
+        Redirect permanent /index.php/home http://www.abimanyu.a11.com/home/
+        Redirect permanent /192.174.4.3/ https://www.abimanyu.a11.com
+        # Available loglevels: trace8, ..., trace1, debug, info, notice, warn,
+        # error, crit, alert, emerg.
+        # It is also possible to configure the loglevel for particular'
+        # modules, e.g.
+        #LogLevel info ssl:warn
+
+        ErrorLog ${APACHE_LOG_DIR}/error.log
+        CustomLog ${APACHE_LOG_DIR}/access.log combined
+
+        # For most configuration files from conf-available/, which are
+        # enabled or disabled at a global level, it is possible to
+        # include a line for only one particular virtual host. For example the
+        # following line enables the CGI configuration for this host only
+        # after it has been globally disabled with "a2disconf".
+        #Include conf-available/serve-cgi-bin.conf
+</VirtualHost>' > /etc/apache2/sites-available/abimanyu.a11.com.conf
+```
+Lakukan Perintah
+```
+a2dissite 000-default.conf 
+
+service apache2 restart
+```
+>Lakukan Testing
+```
+lynx 192.174.4.3
+```
+>Hasil
+
+![first](image/19.png)
+
+### Soal 20
+>Karena website www.parikesit.abimanyu.yyy.com semakin banyak pengunjung dan banyak gambar gambar random, maka ubahlah request gambar yang memiliki substring “abimanyu” akan diarahkan menuju abimanyu.png.
+
+#### Abimanyu
+lakukan perintah
+```
+a2enmod rewrite
+```
+Buat file /var/www/parikesit.abimanyu.a11/.htaccess 
+```
+echo 'RewriteEngine On
+RewriteCond %{REQUEST_URI} ^/public/images/(.*)(abimanyu)(.*\.(png|jpg))
+RewriteCond %{REQUEST_URI} !/public/images/abimanyu.png
+RewriteRule abimanyu http://parikesit.abimanyu.a11.com/public/images/abimanyu.png$1 [L,R=301]' > /var/www/parikesit.abimanyu.a11/.htaccess 
+```
+Ubah konfigurasi dan gunakan AllowOverride All untuk mengkonfigurasi nya dengan .htaccess sebelumnya
+```
+echo '<VirtualHost *:80>
+        ServerAdmin webmaster@localhost
+        DocumentRoot /var/www/parikesit.abimanyu.a11
+        ServerName parikesit.abimanyu.a11.com
+        ServerAlias www.parikesit.abimanyu.a11.com
+        <Directory /var/www/parikesit.abimanyu.a11/public>
+                Options +Indexes
+        </Directory>
+        <Directory /var/www/parikesit.abimanyu.a11/secret>
+                Options -Indexes +FollowSymLinks
+        </Directory>
+        <Directory /var/www/parikesit.abimanyu.a11>
+                Options +FollowSymLinks -Multiviews
+                AllowOverride All
+        </Directory>
+        Alias /js /var/www/parikesit.abimanyu.a11/public/js
+        ErrorDocument 403 /error/403.html
+        ErrorDocument 404 /error/404.html
+        ErrorLog ${APACHE_LOG_DIR}/error.log
+        CustomLog ${APACHE_LOG_DIR}/access.log combined
+</Virtualhost>' > /etc/apache2/sites-available/parikesit.abimanyu.a11.com.conf
+
+service apache2 restart
+```
+>Lakukan Testing
+```
+lynx parikesit.abimanyu.a11.com/public/images/not-abimanyu.png
+```
+>Hasil
+
+![first](image/20%20(1).png)
+
+![first](image/20%20(3).png)
+
+![first](image/20%20(2).png)
