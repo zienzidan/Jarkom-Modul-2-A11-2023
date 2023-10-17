@@ -12,7 +12,9 @@
 
 Dalam soal ini, kami mendapatkan plottingan soal Topologi No. 3
 
-![image](https://github.com/zienzidan/Jarkom-Modul-2-A11-2023/assets/114491445/8c9be17f-2325-4a65-94b3-3a0970998de1)
+
+![Screenshot 2023-10-17 172449](https://github.com/zienzidan/Jarkom-Modul-2-A11-2023/assets/114491445/c6d52c82-df9f-4024-9ef8-3a4694551ac5)
+
 
 ## Configurasi
 #### Pandudewanata
@@ -162,7 +164,7 @@ ping www.arjuna.a11.com
 
 **Hasil**
 
-![image](https://github.com/zienzidan/Jarkom-Modul-2-A11-2023/assets/114491445/6ceb33ca-4fcb-4ac7-8a64-a1769aa8aa6a)
+![Screenshot 2023-10-17 174352](https://github.com/zienzidan/Jarkom-Modul-2-A11-2023/assets/114491445/39ada706-025e-4fd1-8c5b-fb122d7e31ef)
 
 ## Soal 3
 > Dengan cara yang sama seperti soal nomor 2, buatlah website utama dengan akses ke abimanyu.yyy.com dan alias www.abimanyu.yyy.com.
@@ -206,7 +208,9 @@ ping abimanyu.a11.com
 ping www.abimanyu.a11.com
 ```
 **Hasil**
-![image](https://github.com/zienzidan/Jarkom-Modul-2-A11-2023/assets/114491445/491a2a3c-1dbd-4b97-8d98-eb9fc54189d4)
+
+![Screenshot 2023-10-17 183333](https://github.com/zienzidan/Jarkom-Modul-2-A11-2023/assets/114491445/60912259-0523-4b1c-ae2e-0e6457a46160)
+
 
 ## Soal 4
 > Kemudian, karena terdapat beberapa web yang harus di-deploy, buatlah subdomain parikesit.abimanyu.yyy.com yang diatur DNS-nya di Yudhistira dan mengarah ke Abimanyu.
@@ -241,8 +245,9 @@ ping parikesit.abimanyu.a11.com
 ```
 
 **Hasil**
+![Screenshot 2023-10-17 183952](https://github.com/zienzidan/Jarkom-Modul-2-A11-2023/assets/114491445/4c4e100f-7f46-4ae3-8287-5b509f0676ee)
 
-![image](https://github.com/zienzidan/Jarkom-Modul-2-A11-2023/assets/114491445/e8c021aa-2b56-4cfc-8138-3b001b2f065c)
+
 
 ## Soal 5
 > Buat juga reverse domain untuk domain utama. (Abimanyu saja yang direverse)
@@ -291,8 +296,9 @@ host -t PTR 192.174.4.3
 ```
 
 **Hasil**
+![Screenshot 2023-10-17 184913](https://github.com/zienzidan/Jarkom-Modul-2-A11-2023/assets/114491445/996c35fd-2e61-4679-ba7e-50da7f67d0aa)
 
-![image](https://github.com/zienzidan/Jarkom-Modul-2-A11-2023/assets/114491445/e182fa43-210e-4176-bdf7-40c08bb1ee1f)
+
 
 ## Soal 6
 > Agar dapat tetap dihubungi ketika DNS Server Yudhistira bermasalah, buat juga Werkudara sebagai DNS Slave untuk domain utama
@@ -356,7 +362,8 @@ ping www.abimanyu.a11.com
 ```
 
 **Hasil**
-![image](https://github.com/zienzidan/Jarkom-Modul-2-A11-2023/assets/114491445/6dba78b9-6716-45d4-b0d6-01d00da4a05a)
+
+![Screenshot 2023-10-17 191748](https://github.com/zienzidan/Jarkom-Modul-2-A11-2023/assets/114491445/998d4655-97cc-420e-bded-5ce8b7d31580)
 
 ## Soal 7
 >Seperti yang kita tahu karena banyak sekali informasi yang harus diterima, buatlah subdomain khusus untuk perang yaitu baratayuda.abimanyu.yyy.com dengan alias www.baratayuda.abimanyu.yyy.com yang didelegasikan dari Yudhistira ke Werkudara dengan IP menuju ke Abimanyu dalam folder Baratayuda.
