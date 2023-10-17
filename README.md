@@ -10,7 +10,7 @@
 ## Soal 1
 > Yudhistira akan digunakan sebagai DNS Master, Werkudara sebagai DNS Slave, Arjuna merupakan Load Balancer yang terdiri dari beberapa Web Server yaitu Prabakusuma, Abimanyu, dan Wisanggeni. Buatlah topologi dengan pembagian sebagai berikut. Folder topologi dapat diakses pada drive berikut.
 
-Dalam soal ini, kami mendapatkan plottingan soal No. 3
+Dalam soal ini, kami mendapatkan plottingan soal Topologi No. 3
 
 ![image](https://github.com/zienzidan/Jarkom-Modul-2-A11-2023/assets/114491445/8c9be17f-2325-4a65-94b3-3a0970998de1)
 
@@ -354,3 +354,137 @@ Kemudian test menggunakan
 ping abimanyu.a11.com 
 ping www.abimanyu.a11.com 
 ```
+
+**Hasil**
+![image](https://github.com/zienzidan/Jarkom-Modul-2-A11-2023/assets/114491445/6dba78b9-6716-45d4-b0d6-01d00da4a05a)
+
+## Soal 7
+>Seperti yang kita tahu karena banyak sekali informasi yang harus diterima, buatlah subdomain khusus untuk perang yaitu baratayuda.abimanyu.yyy.com dengan alias www.baratayuda.abimanyu.yyy.com yang didelegasikan dari Yudhistira ke Werkudara dengan IP menuju ke Abimanyu dalam folder Baratayuda.
+
+Lakukan edit file yang terdapat di etc/bind/jarkom/abimanyu.a11.com pada DNS Mater (Yudhidtira), seperti di bawah ini :
+
+```shell
+;
+; BIND data file for local loopback interface
+;
+$TTL    604800
+@       IN      SOA     abimanyu.a11.com.       root.abimanyu.a11.com. (
+                              2         ; Serial
+                         604800         ; Refresh
+                          86400         ; Retry
+                        2419200         ; Expire
+                         604800  )      ; Negative Cache TTL
+;
+@               IN      NS      abimanyu.a11.com.
+@               IN      A       192.174.4.3     ; IP Abimanyu
+www             IN      CNAME   abimanyu.a11.com.
+parikesit       IN      A       192.174.4.3
+ns1             IN      A       192.174.1.2     ; IP Werkudara
+baratayuda      IN      NS      ns1
+@               IN      AAAA    ::1
+```
+
+Edit juga pada /etc/bind/named.conf.options dengan isi di bawah ini :
+```shell
+//dnssec-validation auto;
+allow-query{any;};
+
+auth-nxdomain no;    # conform to RFC1035
+listen-on-v6 { any; };
+```
+
+Kemudian kita akan pindah ke DNS Master Werkudara. Lalu edit file /etc/bind/named.conf.options
+dengan isi di bawah ini :
+
+```shell
+//dnssec-validation auto;
+allow-query{any;};
+
+auth-nxdomain no;    # conform to RFC1035
+listen-on-v6 { any; };
+```
+
+Kemudian pada file /etc/bind.named.conf.local edit file sehingga menjadi seperti ini :
+```shell
+'zone "arjuna.a11.com" {
+        type slave;
+        masters { 192.174.2.2; };
+        file "/var/lib/bind/arjuna.a11.com";
+};
+
+zone "abimanyu.a11.com" {
+        type slave;
+        masters { 192.174.2.2; };
+        file "/var/lib/bind/abimanyu.a11.com";
+};
+
+zone "baratayuda.abimanyu.a11.com" {
+        type master;
+        file "/etc/bind/baratayuda/baratayuda.abimanyu.a11.com";
+};
+```
+
+Kemudian buat direktori bernama baratayuda dengan cara ```mkdir /etc/bind/baratayuda```. Setelah itu copy db.local ke direktori tersebut ```cp /etc/bind/db.local /etc/bind/baratayuda/baratayuda.abimanyu.a11.com```.
+
+Lalu edit pada file /etc/bind/baratayuda/baratayuda.abimanyu.a11.co sehingga seperti di bawah ini :
+
+```shell
+;
+; BIND data file for local loopback interface
+;
+$TTL    604800
+@       IN      SOA     baratayuda.abimanyu.a11.com. root.baratayuda.abimanyu.a11.com. (
+                        2               ; Serial
+                         604800         ; Refresh
+                          86400         ; Retry
+                        2419200         ; Expire
+                         604800 )       ; Negative Cache TTL
+;
+@               IN      NS      baratayuda.abimanyu.a11.com.
+@               IN      A       192.174.4.3   ; IP Abimanyu
+www             IN      CNAME   baratayuda.abimanyu.a11.com.
+```
+
+Setelah itu lakukan restart pada bind9 dengan ```service bind9 restart```.
+
+Terakhir lakukan testing pada client (Nakula atau Sadewa)
+```
+ping baratayuda.abimanyu.a11.com
+ping www.baratayuda.abimanyu.a11.com
+```
+
+**Hasil**
+
+## Soal 8
+> Untuk informasi yang lebih spesifik mengenai Ranjapan Baratayuda, buatlah subdomain melalui Werkudara dengan akses rjp.baratayuda.abimanyu.yyy.com dengan alias www.rjp.baratayuda.abimanyu.yyy.com yang mengarah ke Abimanyu.
+
+Pada soal ini kita hanya akan mengedit pada file /etc/bind/baratayuda/baratayuda.abimanyu.a11.com sehingga menjadi seperti di bawah ini :
+
+```shell
+;
+; BIND data file for local loopback interface
+;
+$TTL    604800
+@       IN      SOA     baratayuda.abimanyu.a11.com. root.baratayuda.abimanyu.a11.com. (
+                              2         ; Serial
+                         604800         ; Refresh
+                          86400         ; Retry
+                        2419200         ; Expire
+                         604800 )       ; Negative Cache TTL
+;
+@       IN      NS      baratayuda.abimanyu.a11.com.
+@       IN      A       192.174.4.3     ; IP Abimanyu
+www     IN      CNAME   baratayuda.abimanyu.a11.com.
+rjp     IN      A       192.174.4.3
+www.rjp IN      CNAME   rjp
+```
+
+Kemudian restart bind9 dengan ```service bind9 restart```
+
+Lalu lakukan testing pada client (Nakula atau Sadewa)
+```
+ping rjp.abimanyu.a11.com
+ping www.rjp.abimanyu.a11.com
+```
+
+**Hasil**
